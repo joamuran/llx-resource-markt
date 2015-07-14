@@ -1,0 +1,253 @@
+<?php
+ini_set('zlib.output_compression', 'On');
+
+class appManager{
+    var $manifestpath="./../apps.manifest/";
+
+    function getAllApps(){
+        /*
+        Returns all the apps registered into apps.manifest
+        */
+        $resources = array();
+
+        $dir = opendir($this->manifestpath);
+        
+        while ($file = readdir($dir)) {
+            if ($file == '.' || $file == '..') {
+                continue;
+            }
+            
+            $json = file_get_contents($this->manifestpath.$file);
+            array_push ( $resources,  $json);
+            
+        }
+
+        //return (json_encode($resources));
+        //return json_encode($json);
+        return (json_encode($resources));
+    } // End getAllApps
+    
+    
+    
+    
+    
+    /*
+    static function createRscManifest($file_names,$archive_file_name,$file_path)
+    {
+        //echo $file_path;die;
+        //echo ($file_names[0]." - ".$archive_file_name." - ".$file_path);
+        $zip = new ZipArchive();
+        
+        /*if ($zip->open($file_path.$archive_file_name, ZIPARCHIVE::CREATE )!==TRUE) {
+        //if ($zip->open($archive_file_name, ZIPARCHIVE::CREATE )!==TRUE) {
+            exit("cannot open <".$file_path.$archive_file_name.">\n");
+        }* /
+        
+        //create the file and throw the error if unsuccessful
+        if ($zip->open($archive_file_name, ZIPARCHIVE::CREATE )!==TRUE) {
+            exit("cannot open <$archive_file_name>\n");
+        }
+        
+        //add each files of $file_name array to archive
+        /*foreach($file_names as $files)
+        {
+            echo "adding ".$file_path.$files,$files;
+            $zip->addFile($file_path.$files,$files);
+            //echo $file_path.$files,$files."
+    
+        }* /
+        
+        //echo "*".count($file_names)."*";
+        foreach($file_names as $files){
+          if(file_exists($files)) {
+            echo "adding $files";
+                $zip->addFile($files, "kk");
+          } else echo "$files not exist";
+        }
+    
+        
+        $zip->close();
+        
+        
+        //echo $file_path.$archive_file_name;
+        if (file_exists($file_path.$archive_file_name)){
+            //then send the headers to foce download the zip file
+            header("Content-type: application/zip"); 
+            header("Content-Disposition: attachment; filename=$archive_file_name");
+            header("Content-length: " . filesize($file_path.$archive_file_name));
+            header("Pragma: no-cache"); 
+            header("Expires: 0"); 
+            readfile($file_path.$archive_file_name);
+            unlink($file_path.$archive_file_name);
+            exit ("done");
+            } else echo "zip-llxrsc does not exists";
+            
+        ///echo "aaa";
+    }
+    */
+        
+        
+    static function createRscManifest($files,$archive_file_name){
+        /*
+        * $files: array of files to download
+        */
+   
+   
+       # create new zip opbject
+       $zip = new ZipArchive();
+       # create a temp file & open it
+       $tmp_file = tempnam('.','');
+       $tmp_file = "test.zip";
+       
+       $zip->open($tmp_file, ZipArchive::CREATE);
+       # loop through each file
+       foreach($files as $file){
+           # download file
+           $download_file = file_get_contents($file);
+   
+           #add it to the zip
+           $zip->addFromString(basename($file),$download_file);
+
+       }
+       # close zip
+       $zip->close();
+       echo ("/models/test.zip");
+       # send the file to the browser as a download
+       /*header('Content-disposition: attachment; filename='.$download_file);
+       header('Content-type: application/zip');
+       header("Content-length: " . filesize($download_file));
+       header("Pragma: no-cache"); 
+       header("Expires: 0");
+       readfile($tmp_file);*/
+       
+       
+       
+       /*  
+        ob_start("");
+
+        header('Pragma: public');   // required
+        header('Expires: 0');       // no cache
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime ($tmp_file)).' GMT');
+        header('Cache-Control: private',false);
+        header('Content-Type: application/zip');
+        //header('Content-Disposition: attachment; filename="'.$download_file.'"');
+        header('Content-Disposition: attachment; filename="puturru.zip"');
+        header('Content-Transfer-Encoding: binary');
+        header('Content-Length: '.filesize($tmp_file)); // provide file size
+        header('Connection: close');
+        
+        ob_end_clean();
+        
+        //ob_clean();   // discard any data in the output buffer (if possible)
+        //flush();      // flush headers (if possible)
+        
+        @readfile($tmp_file);
+        exit();*/
+        
+       
+       
+       //unlink($tmp_file);
+       
+       
+  /*   header("Pragma: public");
+       header("Expires: 0");
+       header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+       header("Cache-Control: public");
+       header("Content-Description: File Transfer");
+       header("Content-type: application/octet-stream");
+       header("Content-Disposition: attachment; filename=\"pajarito\"");
+       header("Content-Transfer-Encoding: binary");
+       header("Content-Length: ".filesize($tmp_file));
+       ob_end_flush();*/
+       //@readfile($tmp_file);
+       
+       
+    // http headers for zip downloads
+/*header("Pragma: public");
+header("Expires: 0");
+header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+header("Cache-Control: public");
+header("Content-Description: File Transfer");
+header("Content-type: application/octet-stream");
+header("Content-Disposition: attachment; filename=\"tralari.zip\"");
+header("Content-Transfer-Encoding: binary");
+header("Content-Length: ".filesize($tmp_file));
+ob_end_flush();
+@readfile($tmp_file);*/
+    
+    }
+    
+    
+    function getResource2($rsc){
+        $_POST["rsc"]=$rsc;
+        $_POST["manifestpath"]=$this->manifestpath;
+        require_once("createRscManifest.php");
+    }
+    
+    function getResource($rsc){
+        /*
+        Reads manifest for resource and creates a .rscmanifest zipped file with resource and manifest
+        */
+        
+        
+        // Prepare array files
+        $files_to_add = array();
+            
+        // Read Manifest
+        $json_data = file_get_contents($this->manifestpath.$rsc);
+        $json=json_decode($json_data, true);
+        
+        // Add files from resource (it thay are needed)
+        /*if (gettype($json['launch_file'])!='NULL'){
+           array_push($files_to_add, $json['launch_file']);
+        }*/
+        
+        // Add resource manifest
+        array_push($files_to_add, $_SERVER['DOCUMENT_ROOT'].'/repoo/apps.manifest/'.$rsc);
+        //return json_encode($files_to_add);
+        
+        $zipname=$json['id'].'.llxrsc';
+        $tmp_path=$_SERVER['DOCUMENT_ROOT'].'/repoo/tmp/';
+        
+        //return (gettype($json['launch_file']));
+    
+        // I a partir d'aci crea el zip...
+        
+        
+        /*
+         *Seguint:
+        http://stackoverflow.com/questions/12225964/create-a-zip-file-and-download-it
+        
+        */
+
+        //createRscManifest($file_names,$archive_file_name,$file_path);
+        self::createRscManifest($files_to_add,$zipname);
+        
+        
+    }
+    
+    
+}
+
+$myappManager=new appManager();
+
+// Main controller...
+
+switch ($_POST["action"]){
+//switch ($_GET["action"]){
+    case "getAllApps":
+        echo($myappManager->getAllApps());
+    break;
+    case "getResource":
+        $myappManager->getResource($_POST["filename"]);
+    break;
+}
+
+/*if ($_POST["action"]=="getAllApps") echo($myappManager->getAllApps());
+else if ($_POST["action"]=="getAllApps") echo($myappManager->getAllApps());
+//if ($_POST["action"]=="getAllApps") return ("cosa");
+else return ("pajarito");*/
+
+
+?>

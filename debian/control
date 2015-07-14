@@ -1,0 +1,13 @@
+Source: llx-resource-markt
+Section: misc
+Priority: optional
+Maintainer: LliureX Team <lliurex@gva.es>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.9.5
+
+Package: llx-resource-markt
+Depends: ${misc:Depends}, php5-cli, apache2, libapache2-mod-php5
+Architecture: all
+Description: Lliurex Resource Markt.
+ Web application to manage a repository
+ of educational resources.

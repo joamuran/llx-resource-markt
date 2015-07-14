@@ -1,0 +1,9 @@
+Template: llx-resource-markt/useradmin
+Type: string
+Description: Enter administrator username:
+ Enter username for administrations tasks.
+
+Template: llx-resource-markt/adminpass
+Type: password
+Description: Enter administrator password:
+ Enter a password for administrator username.

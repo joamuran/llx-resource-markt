@@ -1,0 +1,312 @@
+
+
+#registered, #unregistered{
+    padding: 25px;
+}
+
+.rscRow{
+    height: 24px !important;
+    float: left;
+    clear: both;
+    vertical-align: center !important;
+}
+
+
+.rscRow:hover{
+  cursor: default;
+  background: #f8c2af;
+}
+
+
+.rscheader{
+    /*color: #AEA79F !important;*/
+    background-color: #dddddd;
+    float: left;
+    color: #333333;
+    margin: 1px;
+    height: 100%;
+    border-radius: 4px;
+
+}
+
+.rscitem{
+    float: left;
+    /*background: #ff0000;*/
+    padding: 5px 1px 5px 1px;
+    overflow: hidden;
+}
+
+
+.rscname{width: 300px;}
+.rscfile{width: 200px;}
+.rscclass{width: 150px;}
+
+#NameHeader:hover,  #TypeHeader.rscclass:hover{
+    cursor: pointer;
+}
+
+.editbt{
+    text-align: center;
+    width: 24px;
+    height: 24px;
+    /*padding: 5px;*/
+    font-size: 1.2em;
+    color: #ffffff;
+    /*background-color: #DD4814;
+    border-radius: 50%;*/
+    border: none !important;
+    float: right;
+    background-image: url(img/edit_rsc_round.png);
+    background-repeat: no-repeat;
+    background-position: right;
+
+
+}
+
+.editbt:hover{
+    cursor: pointer;
+}
+
+/* EDIT WINDOW  */
+
+select.btn-mini {
+    height: auto;
+    line-height: 14px;
+}
+
+
+#EditRscTagsContainer{
+    width: 160px;
+    height: 200px;
+    /*height: 40px;
+    border: 1px solid #bbbbbb;*/
+    margin-left: 0px !important;
+}
+
+#EditAppDescName{
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background: #ffffff;
+    padding: 0px;
+    height: 1.3em;
+    margin-top: 10px !important;
+}
+#EditAppDescDev, #EditAppDescDevUrl{
+    position: relative;
+    display: block;
+    float: left;
+    clear:right;
+    height: 2em;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 5px;
+}
+
+.AppDescDevContainer{
+    float: left;
+}
+
+.BtnCancelEditRsc{
+    position: absolute;
+    bottom: 25px;
+    right: 175px;
+    width:120px;
+}
+
+.BtnSaveEditRsc{
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    width:120px;
+}
+
+.url_icon{
+    cursor: pointer;
+}
+
+.ontop{
+    z-index: 2 !important;
+}
+.modal-backdrop{
+    display: none !important;
+}
+
+.modal-header{
+    background-color: #DD4814 !important;
+}
+
+.notification_area{
+    display: none;
+    position: fixed;
+    width: 300px;
+    height: 200px;
+    right: 0px;
+    bottom: 0px;
+    border: #cccccc 1px solid;
+    border-radius: 4px;
+    box-shadow: 10px 10px 50px 20px #f0f0f0 inset;
+    font-size: 1.2em;
+}
+
+#notification_title{
+    background-color: #DD4814;
+    width: 100%;
+    height: 40px;
+    color: #ffffff;
+    padding: 5px;
+
+}
+
+#notification_body{
+    padding: 5px;
+}
+
+
+#unregisteredContent{
+    float: left;
+    clear: both;
+    width: 300px;
+}
+
+.unregisteredItem{
+    position: relative;
+    float: left;
+    clear: left;
+    width: 300px;
+    height: 24px;
+}
+
+.unregisteredItem:hover{
+    cursor: default;
+    background: #f8c2af;
+}
+
+
+.divImgContainer{
+    width: 800px;
+    height: 600px;
+    border: 1px #dddddd solid;
+    border-radius: 4px;
+    background: #ffffff;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    z-index: 2;
+}
+
+.divImgSelector{
+       padding: 20px;
+       height: 390px;
+}
+
+.diviimguploadImage{
+    /*padding: 2px;*/
+    height: 100px;
+    /*background: #eeeeee;*/
+    border-radius: 4px;
+    width: 100%;
+}
+
+.divImgBottom{
+    box-shadow: 10px 10px 50px 20px #f0f0f0 inset;
+    width: 100%;
+    padding: 20px;
+    height: 100px;
+    padding: 20px;
+    border-radius: 4px;
+    border-top: 1px #eeeeee;
+    position: absolute;
+    bottom: 0px;;
+}
+
+#imgApp:hover{
+    cursor: pointer;
+}
+
+.thumbnail{
+    width: 128px !important;
+    height: 128px !important;
+    overflow: hidden !important;
+}
+
+
+
+
+/* DROPZONE */
+
+.dropzone{
+    min-height: 100px !important;
+}
+
+.upload{
+
+
+  border-radius: 4px !important;
+  font-size: 1.5em;
+  float: left;
+  clear: both;
+  width: 700px;
+  margin: 0px 50px 0px 50px;
+  color: #666666;
+  text-align: center;
+  background: #fdf0eb !important;
+  height: 3px !important;
+  padding: 0px !important;
+  /*margin-left: auto;
+  margin-right: auto;*/
+
+}
+
+.upload .dz-message{
+  -webkit-transition: font-size 0.5s, opacity 0.5s;
+  transition: font-size 0.5s, opacity 0.5s;
+}
+
+.upload.dz-drag-hover .dz-message {
+  height: 80px !important;
+  opacity: 0.5 !important;
+  filter: alpha(opacity=100) !important;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+
+  font-size: 2em;
+}
+
+#template{
+    display: none;
+}
+
+.appupload{
+    margin: 0% 10% 20% 10%;
+    width: 80%;
+    height: 70%;
+    background: #fdf0eb !important;
+    border-radius: 5px !important;
+    border: 1px solid #fbe0d6 !important;
+    box-shadow: 10px 10px 50px 20px #fbe0d6 inset;
+}
+
+
+.upload_label{
+    font-size: 1.3em;
+    color: #888888;
+    font-weight: bold;
+    margin-top: 10%;
+    text-align: center;
+    width: 100%;
+}
+
+.deleteicon{
+    background-image: url(img/delete_rsc.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    float: right;
+    /*clear: right;*/
+    display: block;
+}
+
+.deleteicon:hover{
+    cursor: pointer;
+}

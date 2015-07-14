@@ -1,0 +1,402 @@
+@font-face {
+    font-family: Roboto;
+    src: url(fonts/Roboto-Regular.ttf);
+}
+
+@font-face {
+    font-family: RobotoLight;
+    src: url(fonts/Roboto-Light.ttf);
+}
+
+
+@font-face {
+    font-family: RobotoBold;
+    src: url(fonts/Roboto-Bold.ttf);
+}
+
+@font-face {
+    font-family: RobotoCondensed;
+    src: url(fonts/RobotoCondensed-Regular.ttf);
+}
+
+@font-face {
+    font-family: RobotoCondensedLight;
+    src: url(fonts/RobotoCondensed-Light.ttf);
+}
+
+html, body{
+    font-family: "Roboto" !important;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    margin: 0px;
+    padding: 0px;
+}
+
+#topHdr{
+    background-image: url(img/logo.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    top: 0px;
+    width: 100%;
+    height: 145px;
+    margin: 0px;
+    padding: 0px;
+}
+
+#btConnect, #btDisconnect{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 2px !important;
+}
+
+
+#btConnect:hover, #btConnect:active, #btConnect:enabled
+{
+    text-decoration: none;
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+#btDisconnect:hover, #btDisconnect:active, #btDisconnect:enabled,
+{
+    text-decoration: none;
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+#menuConnect{
+    z-index:1;
+    position: absolute;
+    background: #ffffff;
+    right: 15px;
+    top: 50px;
+    width: 300px;
+    height: 250px;
+    border-radius: 4px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.176);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 30px;
+}
+
+.loginLabel{
+    color: #AEA79F !important;
+    font-size: 14px !important;
+    margin-top: 15px !important;
+}
+
+
+
+#mainContainer{
+    float:left;
+    clear: both;
+    width: 100%;
+    height: 100%;
+}
+
+#sideMenuContainer{
+    width: 200px;
+}
+
+#sideMenu{
+    color: #333333;
+    background-color: #ffffff;
+    /*height: 100%;
+    width: 100%;*/
+    float: right;
+    clear: right;
+}
+
+
+#appsDiv{
+    float: left;
+    clear: left;
+    /*background: #ffffee;*/
+    /*max-width: 800px;*/
+}
+
+.menuContainer{
+    margin: 20px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.rootEntry{
+    /*border: #cccccc 1px solid;*/
+    border: none;
+    color: #333333 !important;
+    background-color: #f5f5f5;
+    background-image: url(img/scrolldownsmall.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    /*border-radius: 10px !important;*/
+}
+
+.rootEntry:hover, .rootEntry:focus {
+    background-color: #f0f0f0 !important;
+    cursor: default;
+}
+
+
+.childEntry{
+    border: none;
+    color: #333 !important;
+    background-color: #ffffff;
+    padding-left: 20px;
+    /*border-radius: 0px !important;*/
+
+}
+
+.childEntry:hover, .childEntry:focus {
+    cursor: default;
+
+}
+
+.itemLabel{
+    width: 180px;
+
+}
+
+.entryCB{
+    width: 15px;
+    float: right;
+}
+
+.sectionMenu{
+    height: 44px;
+    padding: 10px 0px 0px 15px;
+    margin: 0px 0px 15px 0px!important;
+    background-color: #f5f5f5;
+
+}
+
+.tags{
+    color: #333333;
+    font-family: "Roboto" !important;
+    font-size: 0.8em;
+    margin: 0px 15px 15px 15px !important;
+}
+
+.tag{
+    background: #DD4814 !important;
+    margin-top: 5px;
+    border: none !important;
+    color: #ffffff !important;
+    padding: 2px 2px 2px 5px!important;
+    font-size: 1em !important;
+}
+
+a[title="Removing tag"]{
+    color: #ffffff !important;
+}
+
+/* Search Button */
+
+.BtContainer{
+    width: 100%;
+    text-align: center;
+}
+
+#BtSearch{
+    padding-left: 20px;
+    padding-right:20px;
+    display: inline-block;
+}
+
+
+/*   APP CONTAINER  */
+
+.AppContainer{
+    /*width: 30%;*/
+    width: 250px;
+    height: 100px;
+    float: left;
+    margin: 10px;
+    border: 1px solid #cccccc;
+    position: relative;
+    background-color: #ffffff;
+    /*box-shadow: 0px 0px 11px -5px rgba(0, 0, 0, 0.8)*/
+}
+
+.AppContainer:hover{
+    cursor: pointer;
+    box-shadow: 10px 10px 50px 20px #f0f0f0 inset;
+}
+
+.appIcon{
+    width: 64px;
+    height: 64px;
+    float: left;
+    margin: 5px;
+}
+
+.appName{
+    margin-top: 10px;
+    font-size: 1em;
+    font-family: "RobotoBold";
+    color: #333333;
+    /*height:*/
+}
+
+.appDeveloper{
+    font-family: "Roboto";
+    color: #333333;
+    font-size: 12px;
+}
+
+.mystar{
+    color: #DD4814;
+    text-shadow: 1px 1px 1px #aaaaaa;
+}
+
+.BtnMini{
+    font-size: 1em;
+    margin:10px;
+}
+
+.BtnDownload{
+    position: relative;
+    /*bottom: 5px;*/
+    margin-right: 5px;
+    float: right;
+}
+
+.rotate45{
+     -ms-transform: rotate(235deg); /* IE 9 */
+    -webkit-transform: rotate(235deg); /* Chrome, Safari, Opera */
+    transform: rotate(235deg);
+}
+
+.ButtonRow{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    float: left;
+    clear: both;
+    background: #eeeeee;
+    border-top: solid 1px #cccccc;
+    padding: 3px;
+    width: 100%;
+}
+
+
+/* Modal dialogs */
+#ModalBack{
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.5);
+    z-index: 1;
+}
+
+#AppDescription{
+    color: #333333;
+    width: 800px;
+    height: 600px;
+    position: relative;
+    background-color: #fefefe;
+    box-shadow: 10px 10px 50px 20px #f0f0f0 inset;
+    left: 50%;
+    top: 50%;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    margin-top: -300px;
+    margin-left: -400px;
+    padding: 0px !important;
+}
+
+#topApp{
+    height: 150px;
+    border-bottom: 1px solid #cccccc;
+    background: #ffffff;
+}
+
+#imgApp{
+    width: 128px;
+    height: 128px;
+    float: left;
+    margin: 10px;
+}
+
+#appDescName, #EditAppDescName{
+    font-size: 3em;
+    display: block;
+    padding-top: 20px;
+}
+
+#appDescDev, #appDescDevUrl{
+    font-size: 1em;
+    display: block;
+}
+
+#leftDesc{
+    float: left;
+    clear: left;
+    width: 200px;
+    /*height: 448px;*/
+    height: 435px;
+    padding: 20px;
+    border-right: 1px solid #cccccc;
+    overflow-y: auto;
+}
+
+#appDescDesc{
+    float: left;
+    clear: right;
+    width: 500px;
+    margin: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.DescLabel{;
+    font-weight: bold;
+}
+
+.DescContent{
+    font-family: "RobotoLight";
+    margin-left: 20px;
+    margin-bottom: 20px
+}
+
+#CloseBt{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #333333;
+}
+#CloseBt:hover{
+    cursor: pointer;
+}
+
+.BtnDownloadBig{
+    position: relative;
+    float: right;
+    /*bottom: 25px;*/
+    margin: 5px;
+    /*position: absolute;
+    bottom: 25px;
+    right: 25px;*/
+}
+
+.BottomButtons{
+    position: absolute;
+    bottom: 0px;
+    left: 199px;
+
+    background: #eeeeee;
+    border-top: solid 1px #cccccc;
+    border-left: solid 1px #cccccc;
+    border-right: solid 1px #cccccc;
+    border-radius: 0px 0px 4px 0px;
+    padding: 3px;
+    width: 600px;
+
+
+}

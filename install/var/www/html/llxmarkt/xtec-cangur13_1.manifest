@@ -1,0 +1,23 @@
+{
+	"id":"xtec-cangur13_1",
+	"name":"Cangur 2013",
+	"description": "Proyecto de actividades para realizar la prueba Cangur de forma interactiva. Es autocorrectivo y da una resolución de cada una de las 30 actividades. También muestra un informe final de las actividades con el número total de aciertos y el tiempo utilizado.Enunciados cedidos por la Comissió Cangur de la Societat Catalana de Matemàtiques - Le Kangourou sans frontières.",
+	"source":{
+		"type": "file",
+		"location":"recursos/jclic/cangur13_1.jclic.zip"
+	},
+    "icon": "apps.icons/cangur13.png",
+    "developer":{
+        "name": "Xtec",
+        "url": ""
+    },
+	"locales": ["en_GB", "es_ES"],
+	"type": "jclic",
+	"level": ["secondary"],
+	"subjects": ["maths"],
+	"tags": [],
+	"popularity": {
+		"sum":20,
+		"count":7
+	}
+}

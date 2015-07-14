@@ -1,0 +1,11 @@
+Package: llx-resource-markt
+Version: 0.1
+Architecture: all
+Maintainer: LliureX Team <lliurex@gva.es>
+Installed-Size: 26
+Depends: debconf (>= 0.5) | debconf-2.0, php5-cli, apache2, libapache2-mod-php5
+Section: misc
+Priority: optional
+Description: Lliurex Resource Markt.
+ Web application to manage a repository
+ of educational resources.

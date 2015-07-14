@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="1000"
+   width="1000"
+   id="svg4186"
+   version="1.1"
+   inkscape:version="0.91 r"
+   sodipodi:docname="edit.svg">
+  <metadata
+     id="metadata4194">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs4192">
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter4775"
+       x="-0.042941704"
+       width="1.0858834"
+       y="-0.054409091"
+       height="1.1088182">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="17.81136"
+         id="feGaussianBlur4777" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="730"
+     inkscape:window-height="480"
+     id="namedview4190"
+     showgrid="false"
+     inkscape:zoom="0.118"
+     inkscape:cx="702.14249"
+     inkscape:cy="497.75479"
+     inkscape:window-x="427"
+     inkscape:window-y="184"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg4186" />
+  <path
+     d="M495.504 660.736l64.728 -64.728 -84.816 -84.816 -64.728 64.728v31.248h53.568v53.568h31.248zm245.52 -401.76q-8.928 -8.928 -18.414 .558l-195.3 195.3q-9.486 9.486 -.558 18.414t18.414 -.558l195.3 -195.3q9.486 -9.486 .558 -18.414zm44.64 331.452v106.02q0 66.402 -47.151 113.553t-113.553 47.151h-464.256q-66.402 0 -113.553 -47.151t-47.151 -113.553v-464.256q0 -66.402 47.151 -113.553t113.553 -47.151h464.256q35.154 0 65.286 13.95 8.37 3.906 10.044 12.834 1.674 9.486 -5.022 16.182l-27.342 27.342q-7.812 7.812 -17.856 4.464 -12.834 -3.348 -25.11 -3.348h-464.256q-36.828 0 -63.054 26.226t-26.226 63.054v464.256q0 36.828 26.226 63.054t63.054 26.226h464.256q36.828 0 63.054 -26.226t26.226 -63.054v-70.308q0 -7.254 5.022 -12.276l35.712 -35.712q8.37 -8.37 19.53 -3.906t11.16 16.182zm-53.568 -411.804l160.704 160.704 -374.976 374.976h-160.704v-160.704zm247.752 73.656l-51.336 51.336 -160.704 -160.704 51.336 -51.336q15.624 -15.624 37.944 -15.624t37.944 15.624l84.816 84.816q15.624 15.624 15.624 37.944t-15.624 37.944z"
+     id="path4188"
+     style="fill:#808080;filter:url(#filter4775)" />
+  <path
+     inkscape:connector-curvature="0"
+     d="m 501.68275,639.62778 64.728,-64.728 -84.816,-84.816 -64.728,64.728 0,31.248 53.568,0 0,53.568 31.248,0 z m 245.52,-401.76 q -8.928,-8.928 -18.414,0.558 l -195.3,195.3 q -9.486,9.486 -0.558,18.414 8.928,8.928 18.414,-0.558 l 195.3,-195.3 q 9.486,-9.486 0.558,-18.414 z m 44.64,331.452 0,106.02 q 0,66.402 -47.151,113.553 -47.151,47.151 -113.553,47.151 l -464.256,0 q -66.402,0 -113.552999,-47.151 -47.151,-47.151 -47.151,-113.553 l 0,-464.256 q 0,-66.402 47.151,-113.552997 47.150999,-47.151 113.552999,-47.151 l 464.256,0 q 35.154,0 65.286,13.95 8.37,3.906 10.044,12.834 1.674,9.486 -5.022,16.182 l -27.342,27.341997 q -7.812,7.812 -17.856,4.464 -12.834,-3.348 -25.11,-3.348 l -464.256,0 q -36.828,0 -63.054,26.226 -26.225999,26.226 -26.225999,63.054 l 0,464.256 q 0,36.828 26.225999,63.054 26.226,26.226 63.054,26.226 l 464.256,0 q 36.828,0 63.054,-26.226 26.226,-26.226 26.226,-63.054 l 0,-70.308 q 0,-7.254 5.022,-12.276 l 35.712,-35.712 q 8.37,-8.37 19.53,-3.906 11.16,4.464 11.16,16.182 z m -53.568,-411.804 160.70396,160.704 -374.97596,374.976 -160.704,0 0,-160.704 z m 247.75196,73.656 -51.336,51.336 -160.70396,-160.704 51.336,-51.335997 q 15.624,-15.624 37.94396,-15.624 22.32,0 37.944,15.624 l 84.816,84.815997 q 15.62399,15.624 15.62399,37.944 0,22.32 -15.62399,37.944 z"
+     id="path4188-2"
+     style="fill:#ffffff" />
+</svg>
