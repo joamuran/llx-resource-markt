@@ -59,7 +59,8 @@ adminRscMarkt.prototype.drawUnsortedApps = function drawUnsortedApps(){
     for (i in apps){
             //app=JSON.parse(apps[i]);
             //var row=self.writeRow(app);
-            var newid=apps[i].replace(".", "-");
+            var newid=apps[i].replace(/\./g, "-");
+	//	alert("*"+newid+"*");
 
             filerow=$(document.createElement("div")).addClass("unregisteredItem").attr("id", newid).attr("filename", apps[i]).html("<span>"+apps[i]+"</span>");
 
@@ -251,6 +252,7 @@ adminRscMarkt.prototype.ShowEditDialogforModify = function ShowEditDialogforModi
 
 adminRscMarkt.prototype.ShowEditDialog = function ShowEditDialog(data){
     // Shows edit resource initialized with data.
+	var app=data;
         var self=this;
 
         // Setting up form
