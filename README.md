@@ -6,7 +6,6 @@ Llx-resource-markt is a web application for managing educational resources. The 
 
 1. Download source and install llxmark forlder into your web server root (for example, in Ubuntu 14.04 / LliureX 15.06), it is under /var/www/html.
 2. Execute install.sh script to configure access for admin user and properly file permissions.
-3. 
 
 
 
