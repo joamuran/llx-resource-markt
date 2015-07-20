@@ -9,6 +9,10 @@ echo "*   Let's ask some questions to finish     *"
 echo "*   configuration for LliureX Resource     *"
 echo "*   Market.                                *"
 echo "*                                          *"
+echo "*   Caution:                               *"
+echo "*                                          *"
+echo "*    This script should be run as sudo!    *"
+echo "*                                          *"
 echo "********************************************"
 
 echo
@@ -37,7 +41,16 @@ done
 echo 
 echo "Generate models/cfg/admin.json...."
 
+# Create needed dirs if they are not created
 [ -d models/cfg/ ] || mkdir -p models/cfg
+[ -d apps.manifest ] || mkdir -p apps.manifest
+[ -d apps.icons ] || mkdir -p apps.icons
+[ -d recursos ] || mkdir -p recursos
+
+for rsctype in `cat typelist`; do
+    echo "Creating recursos/$rsctype..."
+    [ -d recursos/$rsctype ] || mkdir -p recursos/$rsctype
+done
 
 userpass=`echo -n $pass1 | md5sum | cut -f 1 -d " "`
 
