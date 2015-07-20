@@ -23,7 +23,7 @@ if (!(isset($_SESSION["username"]))) {
 
     <div class="form-group loginLabel">
     <label for="passwd" i18n="true" class="loginLabel">label.password</label>
-    <input type="text" class="form-control" name="passwd"></input>
+    <input type="password" class="form-control" name="passwd"></input>
     </div>
 
     <button class="btn btn-primary button submit" name="login" id="btLogin"><span i18n="true">login.connect</span></button>
