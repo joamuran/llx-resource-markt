@@ -62,13 +62,13 @@ echo "}" >> models/cfg/admin.json
 chmod +r models/cfg/admin.json
 
 echo "Adding permissions to apps.manifest...."
-chgrp -R www-data apps.manifest
+chown -R nobody:www-data apps.manifest
 chmod -R 775 apps.manifest
 echo "Adding permissions to apps.icons...."
-chgrp -R www-data apps.icons
+chown -R nobody:www-data apps.icons
 chmod -R 775 apps.icons
 echo "Adding permissions to recursos...."
-chgrp -R www-data recursos
+chown -R nobody:www-data recursos
 chmod -R 775 recursos
 
 
