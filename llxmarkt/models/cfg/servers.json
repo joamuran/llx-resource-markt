@@ -1,0 +1,4 @@
+{"servers":[
+  {"address": "127.0.0.1//llxmarkt", "name": "Local Server"},
+  {"address": "192.168.56.101//llxmarkt", "name": "Test Server"}
+] }

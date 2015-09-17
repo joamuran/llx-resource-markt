@@ -5,10 +5,9 @@ var subject;
 function adminRscMarkt() {
     this.appList=null;
     this.unsortedApps=null;
-
+    this.currentRemoteServer="127.0.0.0.1"; // Sets the remote server where we are connected
     this.ordersort={"name":true, "type":true};
-    }
-
+}
 
 adminRscMarkt.prototype.PaintAdminApps = function PaintAdminApps(){
     var self=this;
@@ -60,6 +59,8 @@ adminRscMarkt.prototype.drawUnsortedApps = function drawUnsortedApps(){
             //app=JSON.parse(apps[i]);
             //var row=self.writeRow(app);
             var newid=apps[i].replace(/\./g, "-");
+            //var newid=apps[i].replace(/\./g, "\.");
+
 	//	alert("*"+newid+"*");
 
             filerow=$(document.createElement("div")).addClass("unregisteredItem").attr("id", newid).attr("filename", apps[i]).html("<span>"+apps[i]+"</span>");
@@ -607,7 +608,8 @@ adminRscMarkt.prototype.SaveResource = function SaveResource(newdata){
                     // Create row modified and replace it
                     var row=self.writeRow(newdata);
                     //alert("#"+newdata["id"]);
-                    $("#"+newdata["id"]).remove();
+                    $("[id='"+newdata["id"]+"']").hide();
+                    //$("#"+newdata["id"]).remove();
 
                     $("#registeredContent").append(row);
 
@@ -634,14 +636,9 @@ adminRscMarkt.prototype.SaveResource = function SaveResource(newdata){
                     })
 
 
-
-
-
-
                 }
         });
 }
-
 
 adminRscMarkt.prototype.DeleteResource = function DeleteResource(target){
     // El target conté l'element DOM amb la informació del recurs a eliminar
@@ -664,7 +661,6 @@ adminRscMarkt.prototype.DeleteResource = function DeleteResource(target){
         });
 }
 
-
 adminRscMarkt.prototype.DeleteResourceManifest = function DeleteResourceManifest(rscid){
     // El target conté l'id del recurs a eliminar
     var self=this;
@@ -679,11 +675,274 @@ adminRscMarkt.prototype.DeleteResourceManifest = function DeleteResourceManifest
                 url:   'models/appManager.php',
                 type:  'post',
                 success:  function (response) {
-                    $("#"+rscid).hide();
+
+                    $("[id='"+rscid+"']").hide();
+                    //$( "#"+rscid).hide();
                     //alert("done");
                 }
         });
 }
+
+adminRscMarkt.prototype.fillMenuEntries=function fillMenuEntries(data){
+        //console.log(response);
+        //$("#appsDiv").html(response);
+
+        var mydata=JSON.parse(data);
+        for (i in mydata["types"].sort()) {
+                var optionmenu=$(document.createElement("a")).attr("id", mydata["types"][i]);
+                $(optionmenu).addClass("list-group-item").addClass("childEntry");
+                var optionlabel=$(document.createElement("span")).addClass("itemLabel").html(I18n.gettext("type."+mydata["types"][i]));
+                var optioncheck=$(document.createElement("input")).attr("type", "checkbox");
+                $(optioncheck).addClass("entryCB");
+                $(optionmenu).append([optionlabel, optioncheck]);
+                $("#RemoteRscTypeMenu").append(optionmenu);
+        }
+
+        for (i in mydata["subjects"].sort()) {
+                var optionmenu=$(document.createElement("a")).attr("id", mydata["subjects"][i]);
+                $(optionmenu).addClass("list-group-item").addClass("childEntry");
+                var optionlabel=$(document.createElement("span")).addClass("itemLabel").html(I18n.gettext("subject."+mydata["subjects"][i]));
+                var optioncheck=$(document.createElement("input")).attr("type", "checkbox");
+                $(optioncheck).addClass("entryCB");
+                $(optionmenu).append([optionlabel, optioncheck]);
+                $("#RemoteRscSubjectMenu").append(optionmenu);
+        }
+
+
+}
+
+adminRscMarkt.prototype.loadRemoteRsc = function loadRemoteRsc(server){
+  // Asks for remote markt (server) for resources list
+  var self=this;
+  var params = {"action" : "getAllApps"};
+  $.ajax({
+          data:  params,
+          url:   server+'/models/appManager.php',
+          type:  'post',
+          beforeSend: function () {
+                  $("#appsDiv").html("Processant...");
+          },
+          success:  function (response) {
+                  self.DrawRemoteRsc(response, server);
+          }
+  });
+
+  // Step 2: Getting categories and subjects
+   var params = {"action" : "getMenus"};
+   $.ajax({
+           data:  params,
+           url:   server+'/models/appManager.php',
+           type:  'post',
+           success:  function (response) {
+                self.fillMenuEntries(response);
+           }
+   });
+
+
+
+}
+adminRscMarkt.prototype.DrawStars=function DrawStars(popularity, count){
+        var mark=Math.floor(popularity/count);
+        var rest=(popularity/count)-mark;
+        var extra_star="";
+
+        if (rest<0.3) extra_star="fa-star-o";
+        else if (rest>0.8) extra_star="fa-star-half-o";
+        else extra_star="fa-star";
+
+        var starslabel=$(document.createElement("div"));
+
+        for (i=0;i<mark;i++){
+                var star=$(document.createElement("i")).addClass("fa fa-star mystar");
+                $(starslabel).append(star);
+        }
+
+        var star=$(document.createElement("i")).addClass("fa mystar").addClass(extra_star);
+        $(starslabel).append(star);
+
+        for (i=mark+1;i<5;i++){
+                var star=$(document.createElement("i")).addClass("fa fa-star-o mystar");
+                $(starslabel).append(star);
+        }
+
+        var votes=$(document.createElement("span")).addClass("appDeveloper").html("    ("+count+")");
+        starslabel.append(votes);
+
+        return starslabel;
+}
+
+
+adminRscMarkt.prototype.downloadSelected=function downloadSelected(){
+  var self=this;
+  $(".SelectActivated").each(function(index, value){
+      //alert(index+" - "+ $(this).attr('id'));
+      var app=JSON.parse($(this).parent().parent().attr("data-app"));
+      //console.log(app);
+      var icon=app["icon"];
+      var filename=app["source"]["location"];
+      var manifest=app["id"];
+      //alert(app["id"]);
+      self.importResource(server,filename, manifest, icon);
+
+  });
+}
+
+
+adminRscMarkt.prototype.DrawRemoteRsc = function DrawRemoteRsc(data, server){
+//$("#remoteAppsContainer").append(response);
+      var self=this;
+
+        $("#remoteAppsDiv").empty();
+        var apps=JSON.parse(data);
+
+        for (i in apps){
+                app=JSON.parse(apps[i]);
+                // Check for empty icon
+                if(app["icon"]==="") {
+                        if (app["type"]==="flash" || app["type"]==="html" || app["type"]==="jclic")
+                                app["icon"]="apps.icons/"+app["type"]+".png";
+                        else app["icon"]="apps.icons/generic.png";
+                } else app["icon"]=server+"/"+app["icon"];
+
+                var img=$(document.createElement("img")).addClass("appIcon").attr("src", app["icon"]);
+                var rscname=$(document.createElement("div")).html(app["name"]).addClass("appName");
+
+                var item=$(document.createElement("div")).addClass("AppContainer").attr("rsc", app["id"]).attr("data-app", apps[i]);
+                var devname=$(document.createElement("div")).html(app["developer"]["name"]).addClass("appDeveloper");
+                var stars=self.DrawStars(app["popularity"]["sum"], app["popularity"]["count"]);
+
+                var buttonrow=$(document.createElement("div")).addClass("ButtonRow");
+
+
+                var icon=$(document.createElement("i")).addClass("fa  fa-arrow-circle-down rotate45");
+                var icondownload=$(document.createElement("i")).addClass("fa  fa-arrow-circle-down");
+
+                // Download Button
+                var text=$(document.createElement("span")).addClass("BtnMini").html(I18n.gettext("app.copy.local"));
+                var downloadButton=$(document.createElement("button")).addClass("btn btn-primary btn-xs BtnDownload");
+                $(downloadButton).append([icondownload,text]);
+
+                // Launch Button
+                var launch_button=$(document.createElement("button")).addClass("btn btn-primary btn-xs BtnDownload");
+                var textload=$(document.createElement("span")).addClass("BtnMini").html(I18n.gettext("app.launch"));
+                $(launch_button).append([icon,textload]);
+
+                // Select multiple resources
+                var multiselect=$(document.createElement("div")).addClass("BtnSelectMultiple SelectDeactivated");
+
+                if (app["source"]["type"]==="web") $(buttonrow).append([launch_button, downloadButton,multiselect]);
+                else $(buttonrow).append([downloadButton,multiselect]);
+
+
+                // dos spans amb flexeta cap avall
+
+
+                $(item).append([img, rscname, devname, stars, buttonrow]);
+                //$(item).addClass("col-sm-4").addClass("AppContainer");
+                $("#remoteAppsDiv").append(item);
+
+
+                // Event Handlers
+                $(item).bind("click", function(event){
+                      self.showAppInfo($(event.currentTarget).attr("data-app"), server);
+                    })
+
+                $(downloadButton).bind("click", function(event){
+                        event.stopPropagation();
+
+                        var app=JSON.parse($(event.currentTarget).parent().parent().attr("data-app"));
+                        var icon=app["icon"];
+                        var filename=app["source"]["location"];
+                        var manifest=app["id"];
+
+                        //var filename=app["id"];
+                        //var manifest=app["source"]["location"];
+                        self.importResource(server,filename, manifest, icon);
+                      })
+
+                $(multiselect).bind("click", function(event){
+                  // Allows to select multiple resources for download
+                        event.stopPropagation();
+                        var target=$(event.currentTarget);
+                        //alert($(target).hasClass("SelectDeactivated"));
+                        if($(target).hasClass("SelectDeactivated")) {
+                          $(target).removeClass("SelectDeactivated");
+                          $(target).addClass("SelectActivated");
+                          var numselected=$(".SelectActivated").length;
+
+                          if(numselected>1){
+                            var AllowMultipleDownload=$(document.createElement("div")).attr("id", "AllowMultipleDownload").html(I18n.gettext("multiple_select"));
+                            $("#AllowMultipleDownload").remove();
+                            $("#remoteAppsDiv").prepend(AllowMultipleDownload);
+                            $(AllowMultipleDownload).unbind("click");
+                            $(AllowMultipleDownload).bind("click", function(event){
+                              self.downloadSelected();
+
+
+
+                            });
+                          }
+                        } else{
+                          $(target).removeClass("SelectActivated");
+                          $(target).addClass("SelectDeactivated");
+                          var numselected=$(".SelectActivated").length;
+                          if(numselected<2) $("#AllowMultipleDownload").remove();
+                        }
+                      });
+
+
+
+        }
+
+
+
+
+}
+
+
+adminRscMarkt.prototype.CheckServerStatus = function CheckServerStatus(){
+  /* Checks for remote server status. If remote server is alive, we can import resources */
+    var self=this;
+
+    //$("#"+rscid).hide();
+    server=$("#srv_address").val();
+
+    if(server.substring(0,7)!="http://" && server.substring(0,8)!="https://") server="http://"+server;
+
+    // Setting currentRemoteServer
+    self.currentRemoteServer=server;
+
+    var params = {"action" : "checkStatus"};
+
+    $.ajax({
+                data:  params,
+                url:   server+'/models/remoteManager.php',
+                type:  'post',
+                beforeSend: function () {
+                    $("#check_ip_img").addClass("rotate");
+                },
+                success:  function (response) {
+                  console.log(response);
+                   $("#check_ip_img").removeClass("rotate");
+                   $("#check_ip").removeClass("check_ip_refresh");
+                   $("#check_ip_img").removeClass("check_ip_img_refresh");
+                   $("#check_ip_img").addClass("check_ip_img_true");
+                   $("#check_ip").addClass("check_ip_true");
+                   $(".check_srv").remove();
+                   $("#RemoteResourcesDiv").css("display", "block");
+                   self.loadRemoteRsc(server);
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                  $("#check_ip").removeClass("check_ip_refresh");
+                  $("#check_ip_img").removeClass("check_ip_img_refresh");
+                  $("#check_ip_img").removeClass("rotate");
+                  $("#check_ip_img").addClass("check_ip_img_false");
+                  $("#check_ip").addClass("check_ip_false");
+                  $(".check_srv").remove();
+                }
+            });
+          }
 
 
 /*
@@ -693,6 +952,148 @@ adminRscMarkt.prototype.DeleteResourceManifest = function DeleteResourceManifest
 fitxer i el descriptor.
 
 */
+
+
+
+adminRscMarkt.prototype.showAppInfo=function showAppInfo(data_app, server){
+        var self=this;
+        app=JSON.parse(data_app);
+        var icon_location=app["icon"];
+        app["icon"]=server+"/"+app["icon"];
+        $("#RemoteimgApp").attr("src", app["icon"]);
+        $("#RemoteappDescDev").empty().html(app["developer"]["name"]);
+        $("#RemoteappDescDevUrl").empty().html(app["developer"]["url"]);
+        stars=self.DrawStars(app["popularity"]["sum"], app["popularity"]["count"]);
+        $("#RemoteappDescStars").empty().append(stars);
+        $("#RemoteappDescName").empty().html(app["name"]);
+        $("#RemoteRscType").empty().html(app["type"]);
+
+        //alert(app["source"]["location"]);
+        $("#RemoteImportResource").attr("data-location",app["source"]["location"]);
+        $("#RemoteImportResource").attr("data-icon",icon_location);
+        $("#RemoteImportResource").attr("data-id",app["id"]);
+
+        // Levels translation
+        if (app["level"].length>0){
+                app["level"].forEach(function(item, index) {
+                        app["level"][index]=I18n.gettext("level."+item);
+                });
+
+                $("#RemoteRscLevel").empty().html(app["level"].join(", "));
+        } else $("#RemoteRscLevel").empty();
+
+        // Subjects translation
+        if (app["subjects"].length>0){
+                app["subjects"].forEach(function(item, index) {
+                        app["subjects"][index]=I18n.gettext("subject."+item);
+                });
+
+                $("Remote#RscSubjects").empty().html(app["subjects"].join(", "));
+        } else $("#RemoteRscSubjects").empty();
+
+
+        $("#RemoteRscTags").empty().html(app["tags"].join(", "));
+        $("#RemoteappDescDesc").empty().html(app["description"]);
+
+        $("#RemoteImportResource").unbind("click");
+        $("#RemoteImportResource").bind("click", function(e){
+          var filename=$("#RemoteImportResource").attr("data-location");
+          var manifest=$("#RemoteImportResource").attr("data-id");
+          var icon=$("#RemoteImportResource").attr("data-icon");
+          self.importResource(server,filename, manifest, icon);
+        });
+
+        /*if (typeof(app["source"]["location"])==="undefined"){
+                $("#RemoteBtDownloadResource").hide();
+                $("#RemoteBtLaunchResource").hide();
+        } else {
+                $("#RemoteBtDownloadResource").unbind("click");
+                $("#RemoteBtLaunchResource").unbind("click");
+
+                $("#RemoteBtDownloadResource").bind("click", function(event){
+                                event.preventDefault();
+                                id=$(event.currentTarget).attr("data-id");
+                                self.downloadResource(id,false);
+                        })
+
+                $("#RemoteBtLaunchResource").bind("click", function(event){
+                                event.preventDefault();
+                                id=$(event.currentTarget).attr("data-id");
+                                self.downloadResource(id,true);
+                        })
+
+        }*/
+
+
+        // Setting Modal Back to "show"
+        $("#RemoteModalBack").attr("action", "show");
+        $("#RemoteModalBack").fadeIn(150);
+}
+
+
+adminRscMarkt.prototype.importResource=function importResource(server, filename, manifest, icon){
+  /*
+     Imoports a resource from Server. It includes manifest file and resource file.
+     to perform this, we connect to local server and gives it the remote server files.
+  */
+
+  var self=this;
+
+  var params = {"action" : "ImportRemoteResource",
+                "server": server,
+                 "filename":filename,
+                 "manifest":manifest,
+                 "icon":icon
+               };
+
+      $.ajax({
+              data:  params,
+              url:   'models/remoteManager.php',
+              type:  'post',
+              beforeSend: function () {
+                      //$("#appsDiv").html("Processant...");
+              },
+              success:  function (response) {
+
+                var resp=JSON.parse(response);
+                var errortext="";
+                if (resp['error']==="manifestexists") {
+                    errortext=I18n.gettext("copyerror.manifestexists")+" ("+resp['file']+")";
+                } else if (resp['error']==="rscexists") {
+                    errortext=I18n.gettext("copyerror.rscexists")+" ("+resp['file']+")";
+                }
+                if (errortext!="") bootbox.alert(errortext);
+                else self.SaveResource(resp);
+                /*self.unsortedApps=response;
+                self.drawUnsortedApps();*/
+              }
+      });
+}
+
+
+adminRscMarkt.prototype.getAndPaintSelectedApps = function getAndPaintSelectedApps(rsctype, rscsubject, rsctags){
+        // Creates a new Ajax call to getSelectedApps php function on server
+        // The JSON list is painted in GUI
+        var self=this;
+
+        var params = {"action" : "getSelectedApps",
+                      "rsctype": rsctype,
+                      "rscsubject": rscsubject,
+                      "rsctags": rsctags};
+        console.log("****"+params);
+
+        $.ajax({
+                data:  params,
+                url:   self.currentRemoteServer+'/models/appManager.php',
+                type:  'post',
+                beforeSend: function () {
+                        $("#appsDiv").html("Processant...");
+                },
+                success:  function (response) {
+                     self.DrawRemoteRsc(response, self.currentRemoteServer);
+                }
+        });
+}
 
 
 $(document).ready(function() {
@@ -751,6 +1152,109 @@ $(document).ready(function() {
 
 
 
+    /* Import from server  */
+
+    $("#check_ip").unbind("click");
+    $("#check_ip").bind("click", function() {
+
+      $("#check_ip_img").removeClass("check_ip_img_true");
+      $("#check_ip").removeClass("check_ip_true");
+      $("#check_ip_img").removeClass("check_ip_img_false");
+      $("#check_ip").removeClass("check_ip_false");
+      $("#check_ip_img").addClass("check_ip_img_refresh");
+      $("#check_ip").addClass("check_ip_refresh");
+      admin.CheckServerStatus();
+
+      });
+
+
+      // Tags
+      $('#RemoteTags').tagsInput({
+          'height':'200px',
+          'width':'100%',
+          'intreractive':true,
+          'delimiter': [',',';'],
+          'removeWithBackspace' : true,
+          'defaultText': I18n.gettext("rsc.addtag"),
+          'placeholderColor' : '#666666'
+
+        });
+
+      /* Events Listeners for  Modal Back */
+
+      $("#RemoteCloseBt").bind("click", function(){
+              $("#RemoteModalBack").fadeOut(250);
+      });
+
+      $("#RemoteModalBack").bind("click", function(){
+              $("#RemoteModalBack").fadeOut(250);
+          });
+      $("#RemoteAppDescription").bind("click", function(event){
+               event.stopPropagation();
+            });
+
+      $("#RemotemenuConnect").bind("click", function(e){
+              e.stopPropagation();
+              });
+
+
+    // Button to select default remote servers
+    $("#srv_address_button").bind("click", function(e){
+            e.stopPropagation();
+            // TO-DO
+            // Mostrar una llista de servidors coneguts (el servidor de recursos de lliurex, per exemple)
+            $("#srv_address").attr("value", "192.168.56.101/llxmarkt");
+        });
+
+    // Remote Resources Search
+            $("#RemoteBtSearch").bind("click", function(){
+          //alert("Searching");
+
+          // Getting data
+
+          // Gestionem dos llistes
+          // Una amb els atributs a checked i altra amb tots
+          // Si la llista amb atributs a checked és buida, s'utilitaza l'altra (no es vol filtrar per eixe camps)
+
+          /*  Getting search resource types */
+
+          var resourceTypeArray=[];
+          var resourceTypeArrayChecked=[];
+          $("#RemoteRscTypeMenu").find("a").each(function(index){
+            var name=$(this).attr("id");
+            var checked=$(this).find(".entryCB").prop('checked');
+            resourceTypeArray.push(name);
+            if (checked) resourceTypeArrayChecked.push(name);
+          });
+          // We got in resourceTypeArrayChecked the list of resource types
+          //if (resourceTypeArrayChecked.length===0) resourceTypeArrayChecked=resourceTypeArray;
+
+          /* Getting Search subjects */
+
+          var resourceSubjectArray=[];
+          var resourceSubjectArrayChecked=[];
+          $("#RemoteRscSubjectMenu").find("a").each(function(index){
+            var name=$(this).attr("id");
+            var checked=$(this).find(".entryCB").prop('checked');
+            resourceSubjectArray.push(name);
+            if (checked) resourceSubjectArrayChecked.push(name);
+          });
+          // We got in resourceTypeArrayChecked the list of resource types
+          //if (resourceSubjectArrayChecked.length===0) resourceSubjectArrayChecked=resourceSubjectArray;
+
+          // Getting tags input
+          var tmp_tagsarray=$("#RemoteTags").val().replace(/;/g , "").split(",");
+          var tagsArray=[];
+          for (i in tmp_tagsarray){
+            if (tmp_tagsarray[i]!=="") tagsArray.push(tmp_tagsarray[i]);
+          }
+          console.log(resourceTypeArrayChecked);
+          console.log(resourceSubjectArrayChecked);
+          console.log(tagsArray);
+          admin.getAndPaintSelectedApps(resourceTypeArrayChecked,  resourceSubjectArrayChecked, tagsArray);
+
+
+        });
 
 
 });

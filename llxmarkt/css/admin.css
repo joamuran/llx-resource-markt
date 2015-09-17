@@ -295,6 +295,16 @@ select.btn-mini {
     width: 100%;
 }
 
+.remote_connect_title{
+    font-size: 1.3em;
+    color: #888888;
+    font-weight: bold;
+    margin-top: 30px;
+    text-align: center;
+    width: 100%;
+}
+
+
 .deleteicon{
     background-image: url(img/delete_rsc.png);
     background-repeat: no-repeat;
@@ -309,4 +319,128 @@ select.btn-mini {
 
 .deleteicon:hover{
     cursor: pointer;
+}
+
+/*  Remote IP  */
+
+.remote_ip{
+  font-size: 1.2em;
+  color: #777777;
+  width: 400px;
+  height: 130px;
+  background-color: #eeeeee;
+  border-radius: 4px;
+  box-shadow: 10px 10px 50px 20px #f0f0f0 inset;
+  /*margin-left: 200px;*/
+  position: relative;
+  margin-left: -200px;
+  left: 50%;
+  padding: 10px;
+}
+
+.check_srv{
+  top: -30px;
+  position: relative;
+  color: #333333;
+
+}
+
+#check_ip{
+  width: auto;
+  height: 48px;
+  background-color: #fafafa;
+  font-size: 0.6em;
+  /*padding-top: 20px;*/
+  text-align: center;
+}
+
+#check_ip_img{
+  /*margin-top: -20px;*/
+  width: 48px;
+  height: 48px;
+  margin-left: 176px;
+  background-image: url(img/refresh.png);
+  background-repeat: no-repeat;
+  background-position: center;
+
+}
+
+.check_ip_img_true{
+  background-image: url(img/connection_checked.png) !important;
+}
+
+.check_ip_img_refresh{
+  background-image: url(img/refresh.png) !important;
+}
+.check_ip_refresh{
+  background-color: #fafafa !important;
+}
+
+.check_ip_true{
+  background-color: #c6efc6 !important;
+}
+
+.check_ip_false{
+  background-color: #fec8c3 !important;
+}
+
+.check_ip_img_false{
+  background-image: url(img/connection_error.png) !important;
+}
+
+
+/*connection_error.png
+connection_checked.png*/
+
+#check_ip:hover{
+  cursor: pointer;
+  background-color: #eaeaea;
+}
+
+#RemoteResourcesDiv{
+  display: none;
+}
+
+/* Waiting animation */
+
+@keyframes roty {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
+}
+.rotate { animation: 2s roty infinite linear; }
+
+.BtnSelectMultiple {
+  float: left;
+  clear: left;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #aaaaaa;
+  border-radius: 12px;
+  box-shadow: inset 0 0 3px #aaaaaa;
+  padding: 0px;
+}
+
+.SelectDeactivated{
+  /*background-color: rgba(254, 200, 195, 0.5);*/
+}
+
+.SelectActivated{
+  margin: 0px;
+  padding: 0px;
+  background-color: rgba(198, 239, 198, 0.9);
+  background-image: url(img/connection_checked24.png) !important;
+  background-position: center;
+}
+
+#AllowMultipleDownload{
+  float: left;
+  width: 100%;
+  height: auto;
+  padding: 2px;
+  background-color: #ffccaa;
+  cursor: pointer;
+}
+
+select.custom {
+  padding: 0px;
 }

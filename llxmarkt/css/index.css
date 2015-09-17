@@ -284,7 +284,7 @@ a[title="Removing tag"]{
 
 
 /* Modal dialogs */
-#ModalBack{
+#ModalBack, #RemoteModalBack{
     display: none;
     position: absolute;
     top: 0px;
@@ -295,7 +295,7 @@ a[title="Removing tag"]{
     z-index: 1;
 }
 
-#AppDescription{
+#AppDescription, #RemoteAppDescription {
     color: #333333;
     width: 800px;
     height: 600px;
@@ -311,31 +311,31 @@ a[title="Removing tag"]{
     padding: 0px !important;
 }
 
-#topApp{
+#topApp, #RemotetopApp{
     height: 150px;
     border-bottom: 1px solid #cccccc;
     background: #ffffff;
 }
 
-#imgApp{
+#imgApp, #RemoteimgApp{
     width: 128px;
     height: 128px;
     float: left;
     margin: 10px;
 }
 
-#appDescName, #EditAppDescName{
+#appDescName, #EditAppDescName, #RemoteappDescName, #RemoteEditAppDescName {
     font-size: 3em;
     display: block;
     padding-top: 20px;
 }
 
-#appDescDev, #appDescDevUrl{
+#appDescDev, #appDescDevUrl, #RemoteappDescDev, #RemoteappDescDevUrl{
     font-size: 1em;
     display: block;
 }
 
-#leftDesc{
+#leftDesc, #RemoteleftDesc{
     float: left;
     clear: left;
     width: 200px;
@@ -346,7 +346,7 @@ a[title="Removing tag"]{
     overflow-y: auto;
 }
 
-#appDescDesc{
+#appDescDesc, #RemoteappDescDesc{
     float: left;
     clear: right;
     width: 500px;
@@ -365,13 +365,13 @@ a[title="Removing tag"]{
     margin-bottom: 20px
 }
 
-#CloseBt{
+#CloseBt, #RemoteCloseBt{
     position: absolute;
     top: 15px;
     right: 15px;
     color: #333333;
 }
-#CloseBt:hover{
+#CloseBt:hover,#RemoteCloseBt:hover{
     cursor: pointer;
 }
 

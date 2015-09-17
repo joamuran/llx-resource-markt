@@ -71,6 +71,10 @@ var es_ES={
     "message": "Carga",
     "description": ""
   },
+  "app.copy.local":{
+    "message": "Copia a mi Markt",
+    "description": ""
+  },
 
   /* Admin Alter Rsc Form  */
   "Registered.Apps": {
@@ -240,6 +244,14 @@ var es_ES={
     "message": "Añade recursos",
     "description": ""
   },
+  "Add.From.Remote.Apps": {
+    "message": "Añadir recursos desde un repositorio remoto",
+    "description": ""
+  },
+  "Add.Remote.Apps": {
+    "message": "Repositorio Remoto",
+    "description": ""
+  },
   "Upload.rsc": {
     "message": "Arrastre nuevos recursos sobre la siguiente área",
     "description": ""
@@ -263,7 +275,29 @@ var es_ES={
   "bt.delete": {
     "message": "Si, Suprímelo",
     "description": ""
+  },
+
+  "Server.Address": {
+    "message": "Dirección del servidor:",
+    "description": ""
+  },
+  "Check.Server": {
+    "message": "Comprobar la conexión",
+    "description": ""
+  },
+  "copyerror.manifestexists": {
+    "message": "Parece que ya existe este recurso en su servidor o que hay algun fichero de descripción de recurso con el mismo nombre. <br/><br/>Elimínelo para poder descargar este recurso.",
+    "description": ""
+  },
+  "copyerror.rscexists": {
+    "message": "El fichero al que se refiere este recurso ya existe en este servidor. <br/><br/> Elimínelo para poder descargar este recurso.",
+    "description": ""
+  },
+  "multiple_select": {
+    "message": "Ha seleccionado múltiples recursos. Haga clic aqui para descargarlos.",
+    "description": ""
   }
+
 
 
 }

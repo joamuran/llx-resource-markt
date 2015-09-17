@@ -104,7 +104,13 @@ llxRscMarkt.prototype.Draw=function Draw(data){
                 var textload=$(document.createElement("span")).addClass("BtnMini").html(I18n.gettext("app.launch"));
                 $(launch_button).append([icon,textload]);
 
-                if (app["source"]["type"]==="web") $(buttonrow).append([launch_button, downloadButton]);
+
+                // web és per als recursos que són online,caldrà vore si un jclic es pot llançar directament,
+                // o un recurs flash, etc...
+                // o siga, mirar llançadors per a cada tipus de recurs
+
+                //if (app["source"]["type"]==="web" || app["source"]["type"]==="jclic") $(buttonrow).append([launch_button, downloadButton]);
+                if (app["type"]==="web" || app["type"]==="jclic") $(buttonrow).append([launch_button, downloadButton]);
                 else $(buttonrow).append(downloadButton);
 
 
@@ -126,12 +132,12 @@ llxRscMarkt.prototype.Draw=function Draw(data){
                 $(downloadButton).bind("click", function(event){
                         event.stopPropagation();
                         //alert("Downloading: "+$(event.currentTarget).parent().attr("rsc"));
-                        self.downloadResource($(event.currentTarget).parent().parent().attr("rsc"), false);
+                        self.downloadResource($(event.currentTarget).parent().parent().attr("rsc"), {"launch":false});
                         })
 
                 $(launch_button).bind("click", function(event){
                         event.stopPropagation();
-                        self.downloadResource($(event.currentTarget).parent().parent().attr("rsc"), true);
+                        self.downloadResource($(event.currentTarget).parent().parent().attr("rsc"), {"launch":true});
                         })
 
         }
@@ -142,9 +148,16 @@ llxRscMarkt.prototype.Draw=function Draw(data){
 
 }
 
-llxRscMarkt.prototype.downloadResource=function downloadResource(file, launch){
+llxRscMarkt.prototype.downloadResource=function downloadResource(file, options){
         // if launch is true, we are launching resource. If it's false, we'll donload it
+
+        // utilitzat en lloc de launch un json com a paràmetre...->options
+        // WIP: Posem un tercer paràmetre que indique el tipus, i segons el tipus carreguem d'una o altra manera...
+        // $(event.currentTarget).parent().parent().attr("data.app") -> i dins de data app -> type
+
         var self=this;
+
+        var launch=options.launch;
 
         var params = {"action" : "downloadResource", "filename": file+".manifest"};
         $.ajax({
@@ -156,6 +169,7 @@ llxRscMarkt.prototype.downloadResource=function downloadResource(file, launch){
                         var filename = response;
                         //window.location = filename; // Carrega en la mateixa pestanya
                         //window.location.href = filename; // Carrega en nova pestanys
+
                         if (launch) window.location.href = filename; // Carrega en nova pestanys
                         else window.location.href = "download.php?f="+filename; // Descarrega
 
@@ -240,13 +254,13 @@ llxRscMarkt.prototype.showAppInfo=function showAppInfo(data_app){
                 $("#BtDownloadResource").bind("click", function(event){
                                 event.preventDefault();
                                 id=$(event.currentTarget).attr("data-id");
-                                self.downloadResource(id,false);
+                                self.downloadResource(id, {"launch":false});
                         })
 
                 $("#BtLaunchResource").bind("click", function(event){
                                 event.preventDefault();
                                 id=$(event.currentTarget).attr("data-id");
-                                self.downloadResource(id,true);
+                                self.downloadResource(id, {"launch": true});
                         })
 
         }

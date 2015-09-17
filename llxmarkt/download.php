@@ -1,15 +1,16 @@
 <?php
-    
+
 function download_file($filename){
 
 if (file_exists($filename)) {
     header('Content-Description: File Transfer');
     header('Content-Type: application/octet-stream');
-    header('Content-Disposition: attachment; filename='.basename($filename));
+    header('Content-Disposition: attachment; filename='.str_replace(" ", "%20",basename($filename)));
     header('Expires: 0');
     header('Cache-Control: must-revalidate');
     header('Pragma: public');
     header('Content-Length: ' . filesize($filename));
+    error_log("AAAAAAAAAAAAAA:".$filename);
     readfile($filename);
     exit;
     }
@@ -28,6 +29,5 @@ else try{
     } catch(Exception $err){
         echo "Error: "+$err;
   }
-
 
 ?>

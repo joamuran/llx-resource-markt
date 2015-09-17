@@ -73,7 +73,10 @@ var ca_ES={
     "message": "Obri",
     "description": ""
   },
-
+  "app.copy.local":{
+    "message": "Copia al meu Markt",
+    "description": ""
+  },
 
   /* Admin Alter Rsc Form  */
   "Registered.Apps": {
@@ -245,6 +248,14 @@ var ca_ES={
     "message": "Afig recursos",
     "description": ""
   },
+  "Add.From.Remote.Apps": {
+    "message": "Afig recursos des d'un repositori remot",
+    "description": ""
+  },
+  "Add.Remote.Apps": {
+    "message": "Repositori Remot",
+    "description": ""
+  },
   "Upload.rsc": {
     "message": "Arrossega nous recursos sobre la següent àrea",
     "description": ""
@@ -268,7 +279,29 @@ var ca_ES={
   "bt.delete": {
     "message": "Si, Suprimix",
     "description": ""
+  },
+
+  "Server.Address": {
+    "message": "Adreça del servidor:",
+    "description": ""
+  },
+  "Check.Server": {
+    "message": "Comprova la connexió",
+    "description": ""
+  },
+  "copyerror.manifestexists": {
+    "message": "Sembla que ja existeix aquest recurs al vostre servidor o bé hi ha algun fitxer de descripció de recurs amb el mateix nom. <br/><br/> Elimineu-lo si voleu descarregar aquest recurs.",
+    "description": ""
+  },
+  "copyerror.rscexists": {
+    "message": "El fitxer al que fa referència el recurs ja existeix en aquest servidor. <br/><br/> Elimineu-lo per poder descarregar aquest fitxer.",
+    "description": ""
+  },
+  "multiple_select": {
+    "message": "Heu seleccionat múltiples recursos. Feu clic aci per descarregar-los.",
+    "description": ""
   }
+
 
 
 }

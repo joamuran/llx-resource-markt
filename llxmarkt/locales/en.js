@@ -74,6 +74,10 @@ var en={
     "message": "Launch",
     "description": ""
   },
+  "app.copy.local":{
+    "message": "Copy to my mark",
+    "description": ""
+  },
 
   /* Admin Alter Rsc Form  */
   "Registered.Apps": {
@@ -248,6 +252,14 @@ var en={
     "message": "Add resources",
     "description": ""
   },
+  "Add.From.Remote.Apps": {
+    "message": "Add resources from remote pool",
+    "description": ""
+  },
+  "Add.Remote.Apps": {
+    "message": "Remote Pool",
+    "description": ""
+  },
   "Upload.rsc": {
     "message": "Drag new resources on next area",
     "description": ""
@@ -270,6 +282,27 @@ var en={
   },
   "bt.delete": {
     "message": "Yes, delete it",
+    "description": ""
+  },
+
+  "Server.Address": {
+    "message": "Server Address",
+    "description": ""
+  },
+  "Check.Server": {
+    "message": "Check Connectivity",
+    "description": ""
+  },
+  "copyerror.manifestexists": {
+    "message": "Seems that this resource exists in your server or you have a resource with the same manifest name. <br/><br/>You can delete it if you want to get this resource.",
+    "description": ""
+  },
+  "copyerror.rscexists": {
+    "message": "The main file of this resource exists in your server. <br/><br/>Please, remove resource to allow this will be copied.",
+    "description": ""
+  },
+  "multiple_select": {
+    "message": "You have selected some resources. Click here to download them.",
     "description": ""
   }
 

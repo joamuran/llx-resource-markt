@@ -10,20 +10,20 @@ $manifestpath=$_GET["manifestpath"];
 // Read Manifest
 $json_data = file_get_contents($manifestpath.$rsc);
 $json=json_decode($json_data, true);
-        
+
 // Add files from resource (it thay are needed)
 /*if (gettype($json['launch_file'])!='NULL'){
 array_push($files_to_add, $json['launch_file']);
 }*/
-        
+
 // Add resource manifest
 array_push($files_to_add, $_SERVER['DOCUMENT_ROOT'].'/repoo/apps.manifest/'.$rsc);
-        
+
 //$zipname=$json['id'].'.llxrsc';
 //$tmp_path=$_SERVER['DOCUMENT_ROOT'].'/repoo/tmp/';
 
-        
-   
+
+
 # create new zip opbject
 $zip = new ZipArchive();
 # create a temp file & open it
@@ -42,8 +42,8 @@ $zip->addFromString(basename($file),$download_file);
 # close zip
 $zip->close();
 
-       
-       
+
+
     // http headers for zip downloads
 header("Pragma: public");
 header("Expires: 0");

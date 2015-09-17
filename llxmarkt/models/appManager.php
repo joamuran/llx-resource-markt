@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 
 class appManager{
     var $manifestpath="./../apps.manifest/";
@@ -19,7 +20,7 @@ class appManager{
             if ($file == '.' || $file == '..') {
                 continue;
             }
-
+            error_log("************".$this->manifestpath.$file);
             $json = file_get_contents($this->manifestpath.$file);
             array_push ( $resources,  $json);
 
@@ -36,7 +37,7 @@ class appManager{
         $types=array();
         $subjects=array();
         //array_push($type, $apps);
-        foreach ($apps as $app)
+        if ($apps) foreach ($apps as $app)
         {
             $item=json_decode($app);
             $type=$item->type;
@@ -44,7 +45,7 @@ class appManager{
             if (!in_array($type, $types)) array_push($types, $type);
 
             // Parse subjects array
-            foreach($subject as $subj){
+            if($subject) foreach($subject as $subj){
                 if (!in_array($subj, $subjects)) array_push($subjects, $subj);
             }
 
@@ -70,7 +71,7 @@ class appManager{
 
        $zip->open($tmp_file, ZipArchive::CREATE);
        # loop through each file
-       foreach($files as $file){
+       if($files) foreach($files as $file){
            # download file
            $download_file = file_get_contents($file);
 
@@ -168,7 +169,7 @@ class appManager{
         $json=json_decode($json_data, true);
 
         //echo ($json['launch_file']);
-        echo ($json['source']['location']);
+        echo (str_replace(" ", "%20",$json['source']['location']));
 
     } // Function download
 
@@ -197,12 +198,8 @@ class appManager{
             [0] => \n        )\n\n)\n,
 
         */
-        // WIP!!!!!!!
-        // --->> MIRAR QUE ES EL QUE ESTEM ENVIANT QUAN GUARDEM UN NOU RECURS!
-        //error_log("111111111111111111");
 
         error_log( print_r( $rsc, true ) );
-        // error_log("222222222222222222");
 
         $json_original=null;
 
@@ -219,8 +216,6 @@ class appManager{
             // Building new location
             $json_original['source']['location']=$rsc['source']['location'];
             $json_original["type"]="new";  // Set to new to force copy from incoming to properly location
-
-
         }
 
         // Create new rsc structure
@@ -254,10 +249,6 @@ class appManager{
         $json_new_data = json_encode($rsc);
         file_put_contents($this->manifestpath.$rsc["id"].".manifest", $json_new_data);
 
-        // Prepare array files
-        //$json_data = json_encode($rsc);
-        //file_put_contents($this->manifestpath.$rsc["id"].".manifesto", $json_data);
-        //echo ($json['launch_file']);
 
 
     } // Function download
@@ -327,7 +318,6 @@ class appManager{
 
 
     function deleteResource($filename){
-        error_log($filename);
         if (file_exists($this->manifestpath.$filename.".manifest")){
           //
           $json_data = file_get_contents($this->manifestpath.$filename.".manifest");
@@ -456,10 +446,6 @@ case "getMenus":
     break;
 }
 
-/*if ($_POST["action"]=="getAllApps") echo($myappManager->getAllApps());
-else if ($_POST["action"]=="getAllApps") echo($myappManager->getAllApps());
-//if ($_POST["action"]=="getAllApps") return ("cosa");
-else return ("pajarito");*/
 
 
 ?>

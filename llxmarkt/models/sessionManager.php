@@ -6,11 +6,11 @@ class sessionManager{
       function login(){
         $user=$_POST["user"];
         $passwd=md5($_POST["passwd"]);
-    
-    
+
+
         $json_data = file_get_contents($this->cfgfile);
         $json=json_decode($json_data, true);
-    
+
         if(($json["username"]==$user) && ($json["pass"]==$passwd)) {
             $_SESSION["username"]=$user;
             return true;
@@ -23,7 +23,7 @@ class sessionManager{
             return true;
         }
 
-    
+
 } // End Class
 
 
@@ -34,21 +34,21 @@ switch ($_POST["action"]){
 case "login":
         echo ($mySessionManager->login());
         break;
-    
+
 case "logout":
         echo ($mySessionManager->logout());
         break;
 }
 
-    
-    
 
-    
-    
-    
+
+
+
+
+
     /*
-    
-    
+
+
     function getAllApps(){
         /*
         Returns all the apps registered into apps.manifest
@@ -56,25 +56,25 @@ case "logout":
         $resources = array();
 
         $dir = opendir($this->manifestpath);
-        
+
         while ($file = readdir($dir)) {
             if ($file == '.' || $file == '..') {
                 continue;
             }
-            
+
             $json = file_get_contents($this->manifestpath.$file);
             array_push ( $resources,  $json);
-            
+
         }
 
         return (json_encode($resources));
     } // End getAllApps
-    
+
     function getMenus(){
         $apps=json_decode($this->getAllApps());
-                
+
         // Get Type of resources
-        
+
         $types=array();
         $subjects=array();
         //array_push($type, $apps);
@@ -84,38 +84,38 @@ case "logout":
             $type=$item->type;
             $subject=$item->subjects;
             if (!in_array($type, $types)) array_push($types, $type);
-            
+
             // Parse subjects array
             foreach($subject as $subj){
                 if (!in_array($subj, $subjects)) array_push($subjects, $subj);
             }
-            
+
         }
-        
+
         $ret=null;
         $ret["types"]=$types;
         $ret["subjects"]=$subjects;
         return json_encode($ret);
     }
-    
-    
+
+
     static function createRscManifest($files,$archive_file_name){
         /*
         * $files: array of files to download
         * /
-   
+
        # create new zip opbject
        $zip = new ZipArchive();
        # create a temp file & open it
-       
+
        $tmp_file = "./../tmp/$archive_file_name";
-       
+
        $zip->open($tmp_file, ZipArchive::CREATE);
        # loop through each file
        foreach($files as $file){
            # download file
            $download_file = file_get_contents($file);
-   
+
            #add it to the zip
            $zip->addFromString(basename($file),$download_file);
 
@@ -123,18 +123,18 @@ case "logout":
        # close zip
        $zip->close();
        echo ("/tmp/$archive_file_name");
-       
+
     }
-    
+
     function getResource($rsc, $onlyresource){
         /*
         Reads manifest for resource and creates a .llxrsc manifest zipped file with resource and manifest
         */
-        
+
         // Prepare array files
         $files_to_add = array();
-    
-    
+
+
         /*
          *
          * TO - DO:
@@ -144,54 +144,54 @@ case "logout":
          *
          * Incloure informació sobre la imatge...
         * /
-    
+
         // Read Manifest
         $json_data = file_get_contents($this->manifestpath.$rsc);
         $json=json_decode($json_data, true);
-        
-        
+
+
         // if only downloading resource...
         if($onlyresource){
             // Only downloading resource (clic, flash...)
             echo ($json['launch_file']);
-            
+
         } else {
             // If we are downloading lliurex resource...
-        
+
             // Add files from resource
             if (gettype($json['launch_file'])!='NULL'){
             array_push($files_to_add, $_SERVER['DOCUMENT_ROOT'].'/repoo/'.$json['launch_file']);
             }
-            
+
             // Add resource manifest
             array_push($files_to_add, $_SERVER['DOCUMENT_ROOT'].'/repoo/apps.manifest/'.$rsc);
             //return json_encode($files_to_add);
-            
+
             $zipname=$json['id'].'.llxrsc';
             $tmp_path=$_SERVER['DOCUMENT_ROOT'].'/repoo/tmp/';
-            
+
             //return (gettype($json['launch_file']));
-        
+
             // I a partir d'aci crea el zip...
-            
+
             self::createRscManifest($files_to_add,$zipname);
         } // else
-        
-        
+
+
     } // Function getresource
-    
-    
+
+
 
 
     function downloadResource($rsc){
         /*
         Reads manifest for resource and creates a .llxrsc manifest zipped file with resource and manifest
         * /
-        
+
         // Prepare array files
         $files_to_add = array();
-    
-    
+
+
         /*
          *
          * TO - DO:
@@ -201,16 +201,16 @@ case "logout":
          *
          * Incloure informació sobre la imatge...
         * /
-    
+
         // Read Manifest
         $json_data = file_get_contents($this->manifestpath.$rsc);
         $json=json_decode($json_data, true);
-        
-        echo ($json['launch_file']);      
-           
+
+        echo ($json['launch_file']);
+
     } // Function download
-    
-    
+
+
 
 }
 
@@ -232,7 +232,7 @@ case "getMenus":
     case "downloadResource":
         $myappManager->downloadResource($_POST["filename"]);
     break;
-    
+
     case "getResource":
         $myappManager->getResource($_POST["filename"], false);
     break;
